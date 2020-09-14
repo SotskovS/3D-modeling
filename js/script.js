@@ -40,5 +40,68 @@ window.addEventListener('DOMContentLoaded', function() {
     
   };  
 
-  countTimer('22 september 2020 16:15');
+  countTimer('22 september 2020 23:26');
+
+  const toggleMenu = () => {
+    const btnMenu = document.querySelector('.menu'),
+          menu = document.querySelector('menu'),
+          closeBtn = document.querySelector('.close-btn'),
+          menuItemS = menu.querySelectorAll('ul>li');
+
+    const handleMenu = () => {
+      menu.classList.toggle('active-menu');
+    };
+
+    btnMenu.addEventListener('click', handleMenu);
+    closeBtn.addEventListener('click', handleMenu);      
+
+    menuItemS.forEach( (item) => item.addEventListener('click', handleMenu));
+
+  };
+
+  toggleMenu();
+
+  const togglePopup = () => {
+
+    const popup = document.querySelector('.popup'),
+          popupBtn = document.querySelectorAll('.popup-btn'),
+          popupClose = document.querySelector('.popup-close');
+let count = 0,
+    wiewScreen = document.documentElement.clientWidth;
+
+let flyInterval;
+let flyAnimate = () => {
+  flyInterval = requestAnimationFrame(flyAnimate);
+  count++;
+  if (count < (wiewScreen - 200)) {
+    popup.style.left = wiewScreen - count + 'px';
+  } else {
+    cancelAnimationFrame(flyInterval);
+  }
+  console.log(count);
+
+  // flyInterval = requestAnimationFrame(flyAnimate);
+};
+
+
+
+console.dir(document.documentElement.clientWidth);
+    popupBtn.forEach((item) => {
+      item.addEventListener('click', () => {
+        popup.style.display = 'block';
+        flyInterval = requestAnimationFrame(flyAnimate);
+
+
+
+
+      });
+    });
+
+    popupClose.addEventListener('click', () => {
+      popup.style.display = 'none';
+    });
+  };
+
+  togglePopup();
+
 });
