@@ -40,13 +40,13 @@ window.addEventListener('DOMContentLoaded', function() {
     
   };  
 
-  countTimer('22 september 2020 23:26');
+  countTimer('15 september 2020 21:45');
 
   const toggleMenu = () => {
     const btnMenu = document.querySelector('.menu'),
-          menu = document.querySelector('menu'),
-          closeBtn = document.querySelector('.close-btn'),
-          menuItemS = menu.querySelectorAll('ul>li');
+      menu = document.querySelector('menu'),
+      closeBtn = document.querySelector('.close-btn'),
+      menuItemS = menu.querySelectorAll('ul>li');
 
     const handleMenu = () => {
       menu.classList.toggle('active-menu');
@@ -64,44 +64,42 @@ window.addEventListener('DOMContentLoaded', function() {
   const togglePopup = () => {
 
     const popup = document.querySelector('.popup'),
-          popupBtn = document.querySelectorAll('.popup-btn'),
-          popupClose = document.querySelector('.popup-close');
-let count = 0,
-    wiewScreen = document.documentElement.clientWidth;
+      popupBtn = document.querySelectorAll('.popup-btn'),
+      popupClose = document.querySelector('.popup-close');
+    
+    let count = 0,
+      wiewScreen = document.documentElement.clientWidth;
 
-let flyInterval;
-let flyAnimate = () => {
-  flyInterval = requestAnimationFrame(flyAnimate);
-  count++;
-  if (count < (wiewScreen - 200)) {
-    popup.style.left = wiewScreen - count + 'px';
-  } else {
-    cancelAnimationFrame(flyInterval);
-  }
-  console.log(count);
-
-  // flyInterval = requestAnimationFrame(flyAnimate);
-};
-
-
-
-console.dir(document.documentElement.clientWidth);
+    let flyInterval;
+    let flyAnimate = () => {
+      flyInterval = requestAnimationFrame(flyAnimate);
+      count = count + 15;
+      
+      if (count < (wiewScreen / 100 * 40)) {
+        popup.style.left = `${Math.floor(count / wiewScreen * 100)}%`;
+      } else {
+        cancelAnimationFrame(flyInterval);
+      }
+    };  
+    
+    
+    
+    console.dir(document.documentElement.clientWidth);
+    
     popupBtn.forEach((item) => {
       item.addEventListener('click', () => {
         popup.style.display = 'block';
         flyInterval = requestAnimationFrame(flyAnimate);
-
-
-
-
+               
+        
       });
     });
-
+    
     popupClose.addEventListener('click', () => {
       popup.style.display = 'none';
     });
+    
+    togglePopup();
+    
   };
-
-  togglePopup();
-
 });
