@@ -65,41 +65,43 @@ window.addEventListener('DOMContentLoaded', function() {
 
     const popup = document.querySelector('.popup'),
       popupBtn = document.querySelectorAll('.popup-btn'),
-      popupClose = document.querySelector('.popup-close');
-    
-    let count = 0,
-      wiewScreen = document.documentElement.clientWidth;
+      popupClose = document.querySelector('.popup-close'),
+      popupContent = document.querySelector('.popup-content');
 
-    let flyInterval;
-    let flyAnimate = () => {
-      flyInterval = requestAnimationFrame(flyAnimate);
+    let request, 
+      count = 0,
+      wiewScreen = document.documentElement.clientWidth;
+console.log(wiewScreen);
+    let movePopup = () => {
+
+      request = requestAnimationFrame(movePopup);
       count = count + 15;
       
-      if (count < (wiewScreen / 100 * 40)) {
-        popup.style.left = `${Math.floor(count / wiewScreen * 100)}%`;
+      if (count < (wiewScreen / 100 * 37)) {
+        popupContent.style.left = `${Math.floor(count / wiewScreen * 100)}%`;
       } else {
-        cancelAnimationFrame(flyInterval);
+        cancelAnimationFrame(request);
       }
+
     };  
-    
-    
-    
-    console.dir(document.documentElement.clientWidth);
-    
+
     popupBtn.forEach((item) => {
+
       item.addEventListener('click', () => {
         popup.style.display = 'block';
-        flyInterval = requestAnimationFrame(flyAnimate);
-               
-        
+        if (wiewScreen > 768) {request = requestAnimationFrame(movePopup);}        
       });
+
     });
     
     popupClose.addEventListener('click', () => {
-      popup.style.display = 'none';
+      count = 0;      
+      popup.removeAttribute('style');
+      popupContent.removeAttribute('style');
     });
     
-    togglePopup();
-    
   };
+
+    togglePopup();
+
 });
