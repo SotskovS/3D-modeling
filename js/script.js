@@ -63,7 +63,9 @@ window.addEventListener('DOMContentLoaded', function() {
         handleMenu();
       } else if (target.closest('menu > ul')) {        
         handleMenu();
-      }
+      } else {
+        handleMenu();
+      }      
 
     });
     
