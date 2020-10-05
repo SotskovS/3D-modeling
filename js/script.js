@@ -56,17 +56,15 @@ window.addEventListener('DOMContentLoaded', function() {
    
     body.addEventListener('click', event => {
       let target = event.target;
-      
+
       if (target.closest('.menu')) {
         handleMenu();
-      } else if (target.closest('menu.close-btn')) {
+      } else if (target.closest('menu > a.close-btn')) {        
         handleMenu();
-      } else if (target.closest('menu > ul')) {        
+      } else if (target.closest('menu > ul > li > a')) {                
         handleMenu();
-      } else {
-        handleMenu();
-      }      
-
+      } 
+      
     });
     
   };
@@ -101,9 +99,14 @@ window.addEventListener('DOMContentLoaded', function() {
     popupBtn.forEach((item) => {
 
       item.addEventListener('click', () => {
-        popup.style.display = 'block';
+
+        wiewScreen = document.documentElement.clientWidth;
+        
         if (wiewScreen > 768) {
           request = requestAnimationFrame(movePopup);          
+          popup.style.display = 'block';
+        } else {
+          popup.style.display = 'block';
         }
       });
 
@@ -134,7 +137,7 @@ window.addEventListener('DOMContentLoaded', function() {
     const tabHeader = document.querySelector('.service-header'),
       tab = tabHeader.querySelectorAll('.service-header-tab'),
       tabContent = document.querySelectorAll('.service-tab');
-
+               
     const toggleTabContent = index => {
 
       tabContent.forEach( (item, i) => {
@@ -166,9 +169,7 @@ window.addEventListener('DOMContentLoaded', function() {
       }
 
     });
-
-    toggleTabContent();
-
+    
   };
 
   tabs();
