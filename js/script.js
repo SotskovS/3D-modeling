@@ -295,4 +295,55 @@ window.addEventListener('DOMContentLoaded', function() {
 
   slider();
 
+  // comand
+
+  const comandImg = () => {
+
+    const command = document.querySelector('.command'),
+          img = command.querySelectorAll('img');
+    
+    img.forEach( item => {
+      
+      let src = null;
+      
+      item.addEventListener('mouseover', event => {
+        
+        src = event.target.getAttribute('src');
+
+        event.target.src = event.target.dataset.img;
+    
+      });
+
+      item.addEventListener('mouseout', event => {
+
+        event.target.src = src;
+    
+      });
+      
+    });
+  
+  };
+
+  comandImg();
+  
+  //calc 
+
+  const calc = () => {
+
+    const calcBlock = document.querySelector('.calc-block'),
+          calckInput = calcBlock.querySelectorAll('input');
+
+    calckInput.forEach( input => {
+
+      input.addEventListener('input', () => {
+
+        input.value = input.value.replace(/\D/g, '');
+
+      });
+    });
+
+  };
+
+  calc();
+
 });
