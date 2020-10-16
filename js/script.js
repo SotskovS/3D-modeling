@@ -391,66 +391,54 @@ window.addEventListener('DOMContentLoaded', function() {
 
   //send-ajax-form
 
-  const sendForm = () => {
-
+  const sendForm = (idForm) => {
+    
     const errorMessage = 'Что-то пошло не так...',
           loadMessage = 'Загрузка...',
           successMessage = 'Спасибо! Мы скоро с вами свяжемся!';
-
-    const forms = document.querySelectorAll('form');          
-
-    forms.forEach( (item) => {
-      item.querySelector('.form-btn').disabled = true;
-    });        
       
     const statusMessage = document.createElement('div');
     statusMessage.style.cssText = 'font-size: 2rem; color: #ffffff';
     
+    const postForm = idForm => {
 
+      const form = document.getElementById(idForm);
+      
+      form.querySelector('.form-btn').disabled = true;
+      
+      form.addEventListener('input', event => {
 
-    const postForm = form => {
+        let target = event.target;
 
-      forms.forEach( form => {
-  
-        form.addEventListener('input', event => {
-          let target = event.target;
+        let formBtn = form.querySelector('.form-btn');
 
-          let idForm = target.getAttribute('id');
+        if (target.getAttribute('name') === 'user_phone') {
+
+          target.value = target.value.replace(/(?!\+)\D/g, '');
+            
+          while ((/\+?[0-9]{11}/).test(target.value)) {
+            formBtn.disabled = false;
+            break;
+          } 
+
+          if (!(/\d{11}/).test(target.value) || (/\d{12}/).test(target.value)) {
+            formBtn.disabled = true;
+          }   
+        
+        }
+
+        if ((target.getAttribute('name') === 'user_name') || (target.getAttribute('name') === 'user_message')){
+
+          target.addEventListener('input', () => {
+
+            if (!/[а-яА-ЯёЁ]|\s/.test(target.value)) {
+              target.value = '';                          
+            }
+
+          });
           
-
-          
-
-          let formBtn = form.querySelector('.form-btn');
-          
-
-          if (target.getAttribute('name') === 'user_phone') {
-
-            target.value = target.value.replace(/(?!\+)\D/g, '');
-              
-            while ((/\+?[0-9]{11}/).test(target.value)) {
-              formBtn.disabled = false;
-              break;
-            } 
-
-            if (!(/\d{11}/).test(target.value) || (/\d{12}/).test(target.value)) {
-              formBtn.disabled = true;
-            }   
-          
-          }
-
-          if ((target.getAttribute('name') === 'user_name') || (target.getAttribute('name') === 'user_message')){
-
-            target.addEventListener('input', () => {
-  
-              if (!/[а-яА-ЯёЁ]|\s/.test(target.value)) {
-                target.value = '';                          
-              }
-  
-            });
-  
-          }
-
-        });
+        }
+        
       });
 
       const formInputs = form.querySelectorAll('input');
@@ -484,9 +472,9 @@ window.addEventListener('DOMContentLoaded', function() {
 
     };
 
-    forms.forEach( item => {      
-      postForm(item);  
-    });
+    postForm('form1');
+    postForm('form2');
+    postForm('form3');
     
     const postData = (body, outputData, errorData) => {
       const request = new XMLHttpRequest();
