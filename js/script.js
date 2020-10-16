@@ -397,37 +397,63 @@ window.addEventListener('DOMContentLoaded', function() {
           loadMessage = 'Загрузка...',
           successMessage = 'Спасибо! Мы скоро с вами свяжемся!';
 
-    const forms = document.querySelectorAll('form')
-        
+    const forms = document.querySelectorAll('form');          
+
+    forms.forEach( (item) => {
+      item.querySelector('.form-btn').disabled = true;
+    });        
+      
     const statusMessage = document.createElement('div');
     statusMessage.style.cssText = 'font-size: 2rem; color: #ffffff';
     
+
+
     const postForm = form => {
 
-      const formInputs = form.querySelectorAll('input');
+      forms.forEach( form => {
+  
+        form.addEventListener('input', event => {
+          let target = event.target;
 
-      formInputs.forEach( item => {
-
-        if (item.getAttribute('name') === 'user_phone') {
-
-          item.addEventListener('input', () => {
-            item.value = item.value.replace(/(?!\+)\D/g, '');
-          });
+          let idForm = target.getAttribute('id');
           
-        }
 
-        if ((item.getAttribute('name') === 'user_name') || (item.getAttribute('name') === 'user_message')){
+          
 
-          item.addEventListener('input', () => {
+          let formBtn = form.querySelector('.form-btn');
+          
 
-            if (!/[а-яА-ЯёЁ]|\s/.test(item.value)) {
-              item.value = '';            
-            }
+          if (target.getAttribute('name') === 'user_phone') {
 
-          });
+            target.value = target.value.replace(/(?!\+)\D/g, '');
+              
+            while ((/\+?[0-9]{11}/).test(target.value)) {
+              formBtn.disabled = false;
+              break;
+            } 
 
-        }
+            if (!(/\d{11}/).test(target.value) || (/\d{12}/).test(target.value)) {
+              formBtn.disabled = true;
+            }   
+          
+          }
+
+          if ((target.getAttribute('name') === 'user_name') || (target.getAttribute('name') === 'user_message')){
+
+            target.addEventListener('input', () => {
+  
+              if (!/[а-яА-ЯёЁ]|\s/.test(target.value)) {
+                target.value = '';                          
+              }
+  
+            });
+  
+          }
+
+        });
       });
+
+      const formInputs = form.querySelectorAll('input');
 
       form.addEventListener('submit', () => {
         event.preventDefault();
@@ -439,7 +465,7 @@ window.addEventListener('DOMContentLoaded', function() {
 
         formData.forEach((val, key) => {
           body[key] = val;          
-        })
+        });
 
         postData(body, 
           () => {
@@ -452,9 +478,9 @@ window.addEventListener('DOMContentLoaded', function() {
 
         formInputs.forEach( item => {          
           item.value = '';
-        })
+        });
 
-      })
+      });
 
     };
 
