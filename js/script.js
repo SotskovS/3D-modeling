@@ -427,16 +427,20 @@ window.addEventListener('DOMContentLoaded', function() {
         
         }
 
-        if ((target.getAttribute('name') === 'user_name') || (target.getAttribute('name') === 'user_message')){
-
-          target.addEventListener('input', () => {
+        if (target.getAttribute('name') === 'user_name') {
 
             if (!/[а-яА-ЯёЁ]|\s/.test(target.value)) {
               target.value = '';                          
             }
 
-          });
-          
+        }
+
+        if (target.getAttribute('name') === 'user_message') {
+
+          if (!/[а-яА-ЯёЁ]|\s|\W/.test(target.value)) {
+            target.value = '';                          
+          }
+
         }
         
       });
@@ -497,7 +501,7 @@ window.addEventListener('DOMContentLoaded', function() {
       request.setRequestHeader('contentType', 'application/json');
       
       request.send(JSON.stringify(body));
-    }
+    };
 
   };
 
