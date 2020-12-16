@@ -9,15 +9,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/SotskovS/GloAcademy3D.git"
+    "url": "git+https://github.com/SotskovS/3D-modeling.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/SotskovS/GloAcademy3D/issues"
+    "url": "https://github.com/SotskovS3D-modeling/issues"
   },
-  "homepage": "https://github.com/SotskovS/GloAcademy3D#readme",
+  "homepage": "https://github.com/SotskovS/3D-modeling#readme",
   "devDependencies": {
     "@babel/core": "^7.12.3",
     "@babel/preset-env": "^7.12.1",
